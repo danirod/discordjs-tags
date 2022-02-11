@@ -4,8 +4,8 @@ import { expect } from "chai";
 
 describe("TagProvider", () => {
   let repo: TagProvider;
-  beforeEach(() => {
-    repo = createRepository();
+  beforeEach(async () => {
+    repo = await createRepository(":memory:");
   });
 
   describe(".get", () => {
@@ -29,7 +29,11 @@ describe("TagProvider", () => {
   describe(".set", () => {
     it("get a previously set tag", async () => {
       await repo.tagbag("server", "owner1").tag("duplicated").set(5);
-      expect((repo as any).memory["server:owner1:duplicated"]).to.eq(5);
+      const value = await repo
+        .tagbag("server", "owner1")
+        .tag("duplicated")
+        .get();
+      expect(value).to.eq(5);
     });
   });
 
