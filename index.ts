@@ -31,7 +31,7 @@ const MIGRATION_SCRIPT = `
   );
 `;
 
-class SqliteBasedTagProvider implements TagProvider {
+export class SqliteBasedTagProvider implements TagProvider {
   constructor(private db: Database) {}
 
   tagbag(namespace: Snowflake, owner: Snowflake): TagBag {
